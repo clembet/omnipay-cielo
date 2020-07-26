@@ -1,0 +1,34 @@
+{
+    "name": "clembet/omnipay-cielo",
+    "description": "Cielo API 3.0 driver for Omnipay",
+    "type": "library",
+    "keywords": [
+        "gateway",
+        "cielo",
+        "omnipay",
+        "payment"
+    ],
+    "homepage": "https://github.com/clembet/omnipay-cielo",
+    "require": {
+        "php": ">=7.0",
+        "omnipay/common": "^3.0",
+        "developercielo/api-3.0-php": "^1.2"
+    },
+    "require-dev": {
+        "omnipay/tests": "~3.0"
+    },
+    "license": "MIT",
+    "authors": [
+	{
+		"name": "Keite Clembet",
+		"email": "clembet@gmail.com"
+	}
+    ],
+    "autoload": {
+        "psr-4": {
+            "Omnipay\\Cielo\\": "src/"
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
