@@ -1,6 +1,6 @@
 <?php
 
-namespace Omnipay\Cielo\Requests;
+namespace Omnipay\Cielo\Message;
 
 class AuthorizeRequest extends AbstractRequest
 {
@@ -21,15 +21,15 @@ class AuthorizeRequest extends AbstractRequest
         // @todo detect which type is
         $data = [
             "Amount "          => $this->getAmountInteger(),
-            "MerchantOrderId" => $this->order_id,
+            "MerchantOrderId" => $this->getOrderId(),
             "Customer"        => [
-                "Name" => $this->customer_name
+                "Name" => $this->getCustomerName()
             ],
             "Payment"         => [
                 "Type"           => "CreditCard",
                 "Amount"         => $this->getAmountInteger(),
-                "Installments"   => $this->installments,
-                "SoftDescriptor" => $this->soft_descriptor,
+                "Installments"   => $this->getInstallments(),
+                "SoftDescriptor" => $this->getSoftDescriptor(),
                 "CreditCard"     => [
                     "CardNumber"     => $this->getCard()->getNumber(),
                     "Holder"         => $this->getCard()->getName(),
@@ -41,30 +41,5 @@ class AuthorizeRequest extends AbstractRequest
         ];
 
         return $data;
-    }
-
-    public function __get($name)
-    {
-        return $this->getParameter($name);
-    }
-
-    public function setOrderId($value)
-    {
-        $this->setParameter('order_id', $value);
-    }
-
-    public function setInstallments($value)
-    {
-        $this->setParameter('installments', $value);
-    }
-
-    public function setSoftDescriptor($value)
-    {
-        $this->setParameter('soft_descriptor', $value);
-    }
-
-    public function setCustomerName($value)
-    {
-        $this->setParameter('customer_name', $value);
     }
 }

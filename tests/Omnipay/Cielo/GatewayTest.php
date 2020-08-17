@@ -17,7 +17,7 @@ class GatewayTest extends GatewayTestCase
     {
         $request = $this->gateway->authorize(array('amount' => '10.00'));
 
-        $this->assertInstanceOf(\Omnipay\Cielo\Requests\AuthorizeRequest::class, $request);
+        $this->assertInstanceOf(\Omnipay\Cielo\Message\AuthorizeRequest::class, $request);
         $this->assertSame(1000, $request->getAmountInteger());
     }
 }
