@@ -6,11 +6,9 @@ use Omnipay\Common\AbstractGateway;
 
 /**
  * https://developercielo.github.io/manual/cielo-ecommerce#cart%C3%A3o-de-cr%C3%A9dito
- * @method \Omnipay\Common\Message\RequestInterface authorize(array $options = array())
- * @method \Omnipay\Common\Message\RequestInterface capture(array $options = array())
- * @method \Omnipay\Common\Message\RequestInterface purchase(array $options = array())
+ * @method \Omnipay\Common\Message\RequestInterface completeAuthorize(array $options = array())
+ * @method \Omnipay\Common\Message\RequestInterface completePurchase(array $options = array())
  * @method \Omnipay\Common\Message\RequestInterface refund(array $options = array())
- * @method \Omnipay\Common\Message\RequestInterface void(array $options = array())
  * @method \Omnipay\Common\Message\RequestInterface createCard(array $options = array())
  * @method \Omnipay\Common\Message\RequestInterface updateCard(array $options = array())
  * @method \Omnipay\Common\Message\RequestInterface deleteCard(array $options = array())
@@ -25,7 +23,7 @@ class Gateway extends AbstractGateway
      */
     public function getName()
     {
-        return 'cielo-3.0';
+        return 'Cielo';
     }
 
     /**
@@ -96,7 +94,7 @@ class Gateway extends AbstractGateway
      */
     public function authorize(array $parameters = [])//ok
     {
-        return $this->createRequest(\Omnipay\Cielo\Message\AuthorizeRequest::class, $parameters);
+        return $this->createRequest('\Omnipay\Cielo\Message\AuthorizeRequest', $parameters);
     }
 
     /**
@@ -109,7 +107,7 @@ class Gateway extends AbstractGateway
      */
     public function capture(array $parameters = array())
     {
-        return $this->createRequest(\Omnipay\Cielo\Message\CaptureRequest::class, $parameters);
+        return $this->createRequest('\Omnipay\Cielo\Message\CaptureRequest', $parameters);
     }
 
     /**
@@ -143,7 +141,7 @@ class Gateway extends AbstractGateway
      */
     public function purchase(array $parameters = [])//ok
     {
-        return $this->createRequest(\Omnipay\Cielo\Message\PurchaseRequest::class, $parameters);
+        return $this->createRequest('\Omnipay\Cielo\Message\PurchaseRequest', $parameters);
     }
 
     /**
@@ -156,6 +154,6 @@ class Gateway extends AbstractGateway
      */
     public function void(array $parameters = array())
     {
-        return $this->createRequest(\Omnipay\Cielo\Message\VoidRequest::class, $parameters);
+        return $this->createRequest('\Omnipay\Cielo\Message\VoidRequest', $parameters);
     }
 }
