@@ -4,7 +4,7 @@ namespace Omnipay\Cielo\Message;
 
 class AuthorizeRequest extends AbstractRequest
 {
-
+    protected $resource = 'sales';
     /**
      * Get the raw data array for this message. The format of this varies from gateway to
      * gateway, but will usually be either an associative array, or a SimpleXMLElement.
@@ -13,32 +13,19 @@ class AuthorizeRequest extends AbstractRequest
      */
     public function getData()
     {
-        $this->validate('amount');
+        $this->validate('customer', 'amount', 'paymentType');
 
-        $expiryMonth = str_pad($this->getCard()->getExpiryMonth(), 2, 0, STR_PAD_LEFT);
-        $expiryYear = $this->getCard()->getExpiryYear();
+        $data = [];
+        switch(strtolower($this->getPaymentType()))
+        {
+            case 'creditcard':
+                $data = $this->getDataCreditCard();
+                $data["Payment"]["Capture"] = "false";
+                break;
 
-        // @todo detect which type is
-        $data = [
-            "Amount "          => $this->getAmountInteger(),
-            "MerchantOrderId" => $this->getOrderId(),
-            "Customer"        => [
-                "Name" => $this->getCustomerName()
-            ],
-            "Payment"         => [
-                "Type"           => "CreditCard",
-                "Amount"         => $this->getAmountInteger(),
-                "Installments"   => $this->getInstallments(),
-                "SoftDescriptor" => $this->getSoftDescriptor(),
-                "CreditCard"     => [
-                    "CardNumber"     => $this->getCard()->getNumber(),
-                    "Holder"         => $this->getCard()->getName(),
-                    "ExpirationDate" => $expiryMonth . '/' . $expiryYear,
-                    "SecurityCode"   => $this->getCard()->getCvv(),
-                    "Brand"          => $this->getCard()->getBrand()
-                ]
-            ]
-        ];
+            default:
+                $data = $this->getDataCreditCard();
+        }
 
         return $data;
     }

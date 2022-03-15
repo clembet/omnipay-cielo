@@ -6,6 +6,7 @@ use Omnipay\Common\AbstractGateway;
 
 /**
  * https://developercielo.github.io/manual/cielo-ecommerce#cart%C3%A3o-de-cr%C3%A9dito
+ * https://developercielo.github.io/manual/cielo-ecommerce#consulta-bin-sandbox
  * @method \Omnipay\Common\Message\RequestInterface completeAuthorize(array $options = array())
  * @method \Omnipay\Common\Message\RequestInterface completePurchase(array $options = array())
  * @method \Omnipay\Common\Message\RequestInterface refund(array $options = array())
@@ -110,6 +111,11 @@ class Gateway extends AbstractGateway
         return $this->createRequest('\Omnipay\Cielo\Message\CaptureRequest', $parameters);
     }
 
+    public function acceptNotification(array $parameters = [])
+    {
+        return $this->createRequest('\Omnipay\Cielo\Message\NotificationRequest', $parameters);
+    }
+
     /**
      * Purchase request.
      *
@@ -155,5 +161,10 @@ class Gateway extends AbstractGateway
     public function void(array $parameters = array())
     {
         return $this->createRequest('\Omnipay\Cielo\Message\VoidRequest', $parameters);
+    }
+
+    public function fetchTransaction(array $parameters = [])
+    {
+        return $this->createRequest('\Omnipay\Cielo\Message\FetchTransactionRequest', $parameters);
     }
 }
