@@ -64,6 +64,16 @@ class Gateway extends AbstractGateway
         return $this->setParameter('merchant_key', $value);
     }
 
+    public function getPaymentProvider()
+    {
+        return $this->getParameter('paymentProvider');
+    }
+
+    public function setPaymentProvider($value)
+    {
+        $this->setParameter('paymentProvider', $value);
+    }
+    
     public function parseResponse($data)
     {
         $request = $this->createRequest('\Omnipay\Cielo\Message\PurchaseRequest', []);

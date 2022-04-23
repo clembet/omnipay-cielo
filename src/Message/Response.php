@@ -27,13 +27,13 @@ class Response extends AbstractResponse
 
 
         $result = $this->data;
-        if(isset($this->data['Payment']['ReturnCode']))
+        if(isset($this->data['Payment']))
             $result = $this->data['Payment'];
 
-        $ReturnCode = @$result['ReturnCode'];
-        $status = @$result['Status'];
+        $ReturnCode = @$result['ReturnCode']*1;
+        $status = @$result['Status']*1;
 
-        if(($ReturnCode==0) && (($status==1)||($status==2)||($status==10)||($status==11)||($status==12)))
+        if((($ReturnCode==0)||($ReturnCode==6)) && (($status==1)||($status==2)||($status==10)||($status==11)||($status==12)))
             return true;
 
         return false;
