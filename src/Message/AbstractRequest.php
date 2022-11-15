@@ -304,7 +304,7 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
                 "Capture"        => true,
                 "ServiceTaxAmount"=>0,
                 "Authenticate"   =>false,
-                "Amount"         => $this->getAmountInteger(),
+                "Amount"         => (int)($this->getAmount()*100.0),
                 "Installments"   => $this->getInstallments(),
                 "SoftDescriptor" => $this->getSoftDescriptor(),
                 "CreditCard"     => [
@@ -333,7 +333,7 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
             "Payment"=>[
                 "Provider"=>$this->getTestMode()?"Simulado":$this->getPaymentProvider(), // ver lista de providers: [Bradesco2, BancoDoBrasil2] https://developercielo.github.io/manual/'?shell#regras-adicionais
                 "Type"=>"Boleto",
-                "Amount"=>$this->getAmountInteger(),
+                "Amount"=>(int)($this->getAmount()*100.0),
                 //"BoletoNumber"=>$this->getOrderId(),
                 //"Assignor"=> $this->getSoftDescriptor(),
                 //"Demonstrative"=> "Compra em ".$this->getSoftDescriptor(),
@@ -366,7 +366,7 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
             "Customer"        => $customer,
             "Payment"         => [
                 "Type"           => "Pix",
-                "Amount"         => $this->getAmountInteger()
+                "Amount"         => (int)($this->getAmount()*100.0)
             ]
         ];
 
